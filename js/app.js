@@ -10,35 +10,17 @@ myApp.config(function($routeProvider){
 			templateUrl: 'partials/genre-list.html'
 		})
 		.when("/favs",{
-			templateUrl: 'partials/favs-list.html'
+			templateUrl: 'partials/favs-list.html',
+			controller: 'FavListCtrl'
 		})
 		.otherwise({
 			redirectTo: "/books"
 		});
 });
 
-myApp.controller('NavbarCtrl', function ($scope, $location) {
-	$scope.appDetails = {
-		title: "BookStore"
-	};
-
-	$scope.nav = {};
-
-	$scope.nav.isActive = function(path){
-		if(path === $location.path()){
-			return true;
-		} else {
-			return false;
-		}
-	};
-});
-
-myApp.controller('BookListCtrl', function($scope){
-	$scope.addToFavourites = function(book){
-		console.log('Add to Favourite');
-		console.log(book);
-	}
-	$scope.books = [
+// Services
+myApp.factory('bookService', function(){
+	var books = [
 		{
 			imgUrl: '',
 			name: 'Abnormal',
@@ -82,4 +64,53 @@ myApp.controller('BookListCtrl', function($scope){
 			details: 'Lorem Ipsum, Lorem Ipsum'
 		}
 	];
+
+	return {
+		getBooks: function(){
+			return books;
+		}
+	}
+}); // bookService
+
+myApp.factory('favsService', function(){
+	var favs = [];
+	return {
+		getFavs: function(){
+			return favs;
+		},
+		addToFavs: function(book){
+			favs.push(book);
+		},
+	}
+});
+
+
+// Controllers
+myApp.controller('NavbarCtrl', function ($scope, $location) {
+	$scope.appDetails = {
+		title: "BookStore"
+	};
+
+	$scope.nav = {};
+
+	$scope.nav.isActive = function(path){
+		if(path === $location.path()){
+			return true;
+		} else {
+			return false;
+		}
+	};
+});
+
+myApp.controller('BookListCtrl', function($scope, bookService, favsService){
+	$scope.books = bookService.getBooks();
+	$scope.addToFavourites = function(book){
+		console.log('Add to Favourite');
+		console.log(book);
+		favsService.addToFavs(book);
+	};
+});
+
+myApp.controller('FavListCtrl', function($scope, favsService){
+	$scope.favs = favsService.getFavs();
 });

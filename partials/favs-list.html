@@ -1,3 +1,18 @@
-<div>
-	This is Favourites List
+<div id="favsListWrapper">
+	<ul class="list-unstyled">
+		<li class="book well well-sm" ng-repeat="fav in favs">
+			<div class="book-details clearfix">
+				<img class="img-thumbnail book-thumb pull-left" src="images/book.png" alt="Book Image" />
+				<h3>{{fav.name}}</h3>
+				<p>{{fav.price}}</p>
+				<ul class="list-unstyled list-inline">
+					<li>Rating: {{fav.rating}}</li>
+					<li>Binding: {{fav.binding}}</li>
+					<li>Publisher: {{fav.publisher}}</li>
+					<li>Released: 2017-01-01</li>
+				</ul>
+				<p>{{fav.details}}</p>
+			</div>
+		</li>
+	</ul>
 </div>
