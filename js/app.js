@@ -9,6 +9,9 @@ myApp.config(function($routeProvider){
 		.when("/genres",{
 			templateUrl: 'partials/genre-list.html'
 		})
+		.when("/favs",{
+			templateUrl: 'partials/favs-list.html'
+		})
 		.otherwise({
 			redirectTo: "/books"
 		});
