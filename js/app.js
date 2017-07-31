@@ -14,9 +14,19 @@ myApp.config(function($routeProvider){
 		});
 });
 
-myApp.controller('NavbarCtrl', function ($scope) {
+myApp.controller('NavbarCtrl', function ($scope, $location) {
 	$scope.appDetails = {
 		title: "BookStore"
+	};
+
+	$scope.nav = {};
+
+	$scope.nav.isActive = function(path){
+		if(path === $location.path()){
+			return true;
+		} else {
+			return false;
+		}
 	};
 });
 
